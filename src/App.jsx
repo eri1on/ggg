@@ -427,107 +427,69 @@ export default function App() {
       {/* Location Showcase */}
       <section id="locations" className={`locations-section ${isVisible.locations ? 'visible' : ''}`}>
         <div className="container">
-          <h2 className="section-title">Signature Locations</h2>
-          <p className="section-subtitle">While we can capture your love story anywhere your heart desires, here are some of our favorite romantic destinations</p>
+          <h2 className="section-title">Favorite Shooting Locations</h2>
+          <p className="section-subtitle">Discover some of our most loved romantic destinations where we can capture your love story</p>
           
-          <div className="location-map">
-            <div className="map-background">
-              <div className="location-pins">
-                {[
-                  { 
-                    title: 'Golden Gate Overlook', 
-                    type: 'Sunset Views', 
-                    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    style: { top: '25%', left: '15%' }
-                  },
-                  { 
-                    title: 'Garden Conservatory', 
-                    type: 'Botanical Beauty', 
-                    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    style: { top: '40%', left: '70%' }
-                  },
-                  { 
-                    title: 'Historic Architecture', 
-                    type: 'Timeless Elegance', 
-                    image: 'https://images.unsplash.com/photo-1519167758481-83f29c5c6ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    style: { top: '60%', left: '30%' }
-                  },
-                  { 
-                    title: 'Waterfront Promenade', 
-                    type: 'Romantic Strolls', 
-                    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    style: { top: '35%', left: '85%' }
-                  },
-                  { 
-                    title: 'Forest Cathedral', 
-                    type: 'Natural Wonder', 
-                    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    style: { top: '70%', left: '60%' }
-                  },
-                  { 
-                    title: 'Urban Rooftop', 
-                    type: 'City Skyline', 
-                    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    style: { top: '20%', left: '50%' }
-                  }
-                ].map((location, index) => (
-                  <div 
-                    key={index} 
-                    className="location-pin" 
-                    style={location.style}
-                    data-location={location.title}
-                  >
-                    <div className="pin-marker">
-                      <div className="pin-pulse"></div>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                      </svg>
-                    </div>
-                    <div className="location-tooltip">
-                      <div className="tooltip-image" style={{ backgroundImage: `url(${location.image})` }}></div>
-                      <div className="tooltip-content">
-                        <h4>{location.title}</h4>
-                        <span>{location.type}</span>
-                      </div>
-                    </div>
+          <div className="location-gallery">
+            {[
+              { 
+                title: 'Mountain Vista', 
+                location: 'Rocky Mountains', 
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                style: { top: '15%', left: '20%' }
+              },
+              { 
+                title: 'Garden Paradise', 
+                location: 'Botanical Gardens', 
+                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                style: { top: '35%', left: '75%' }
+              },
+              { 
+                title: 'Historic Estate', 
+                location: 'Victorian Mansion', 
+                image: 'https://images.unsplash.com/photo-1519167758481-83f29c5c6ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                style: { top: '65%', left: '25%' }
+              },
+              { 
+                title: 'Lakeside Romance', 
+                location: 'Crystal Lake', 
+                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                style: { top: '25%', left: '60%' }
+              },
+              { 
+                title: 'Forest Cathedral', 
+                location: 'Redwood Grove', 
+                image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                style: { top: '75%', left: '65%' }
+              },
+              { 
+                title: 'Desert Bloom', 
+                location: 'Joshua Tree', 
+                image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                style: { top: '45%', left: '40%' }
+              }
+            ].map((location, index) => (
+              <div 
+                key={index} 
+                className="photo-pin" 
+                style={location.style}
+              >
+                <div className="pin-photo" style={{ backgroundImage: `url(${location.image})` }}>
+                  <div className="pin-overlay">
+                    <h4>{location.title}</h4>
+                    <span>{location.location}</span>
                   </div>
-                ))}
-              </div>
-              
-              <div className="map-overlay">
-                <div className="anywhere-message">
-                  <div className="message-icon">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                  </div>
-                  <h3>Anywhere You Dream</h3>
-                  <p>These are just a few of our favorite spots. Your perfect location could be anywhere - a family farm, your first date restaurant, or that special place where you got engaged. We travel wherever your story takes us.</p>
-                  <button className="location-cta" onClick={() => scrollToSection('footer')}>
-                    Discuss Your Dream Location
-                  </button>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
           
-          <div className="location-features">
-            <div className="feature-item">
-              <div className="feature-icon">🌍</div>
-              <h4>Anywhere, Anytime</h4>
-              <p>From intimate backyards to destination venues, we bring our expertise to your chosen location</p>
-            </div>
-            <div className="feature-item">
-              <div className="feature-icon">📍</div>
-              <h4>Location Scouting</h4>
-              <p>We'll help you discover the perfect spots that match your vision and style</p>
-            </div>
-            <div className="feature-item">
-              <div className="feature-icon">🚗</div>
-              <h4>Travel Included</h4>
-              <p>Local travel is always included, destination packages available for farther adventures</p>
-            </div>
+          <div className="location-message">
+            <h3>We Travel Anywhere Your Heart Desires</h3>
+            <p>These are just glimpses of the beautiful locations we've captured. Your perfect venue could be anywhere - from intimate backyard ceremonies to destination weddings. We bring our passion and expertise wherever your love story unfolds.</p>
+            <button className="location-cta" onClick={() => scrollToSection('footer')}>
+              Let's Discuss Your Dream Location
+            </button>
           </div>
         </div>
       </section>

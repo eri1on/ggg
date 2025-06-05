@@ -1238,14 +1238,27 @@ body {
 .locations-section {
   padding: 8rem 0;
   background: 
-    linear-gradient(135deg, rgba(255, 248, 243, 0.95) 0%, rgba(255, 240, 245, 0.95) 30%, rgba(253, 245, 230, 0.95) 70%, rgba(255, 239, 213, 0.95) 100%),
-    radial-gradient(circle at 30% 20%, rgba(243, 156, 18, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(255, 182, 193, 0.1) 0%, transparent 50%);
+    linear-gradient(135deg, rgba(255, 248, 243, 0.9) 0%, rgba(255, 240, 245, 0.9) 30%, rgba(253, 245, 230, 0.9) 70%, rgba(255, 239, 213, 0.9) 100%),
+    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+  background-attachment: fixed;
   position: relative;
   opacity: 0;
   transform: translateY(50px);
   transition: all 1s ease-out;
   overflow: hidden;
+}
+
+.locations-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 192, 203, 0.2) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .locations-section.visible {
@@ -1256,6 +1269,8 @@ body {
 .locations-section .section-title {
   color: #2c3e50;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .locations-section .section-subtitle {
@@ -1268,207 +1283,131 @@ body {
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;
-}
-
-.location-map {
   position: relative;
-  max-width: 1000px;
-  margin: 0 auto 4rem;
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-}
-
-.map-background {
-  position: relative;
-  height: 500px;
-  background: 
-    linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(255, 228, 196, 0.2) 30%, rgba(255, 240, 245, 0.2) 70%, rgba(255, 182, 193, 0.1) 100%),
-    url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
-  overflow: hidden;
-}
-
-.map-background::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(2px);
-}
-
-.location-pins {
-  position: absolute;
-  inset: 0;
   z-index: 2;
 }
 
-.location-pin {
-  position: absolute;
-  cursor: pointer;
-  z-index: 3;
-  animation: pinAppear 0.6s ease-out;
+.location-gallery {
+  position: relative;
+  height: 500px;
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes pinAppear {
+.photo-pin {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pinFadeIn 0.8s ease-out;
+}
+
+@keyframes pinFadeIn {
   0% { 
     opacity: 0; 
-    transform: translateY(-20px) scale(0.5);
+    transform: scale(0.5);
   }
   100% { 
     opacity: 1; 
-    transform: translateY(0) scale(1);
+    transform: scale(1);
   }
 }
 
-.pin-marker {
-  position: relative;
-  color: #f39c12;
-  transition: all 0.3s ease;
-  filter: drop-shadow(0 4px 8px rgba(243, 156, 18, 0.3));
-}
-
-.location-pin:hover .pin-marker {
-  transform: scale(1.2);
-  color: #e67e22;
-}
-
-.pin-pulse {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  background: rgba(243, 156, 18, 0.3);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { 
-    transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0.6;
-  }
-  50% { 
-    transform: translate(-50%, -50%) scale(1.2);
-    opacity: 0.3;
-  }
-}
-
-.location-tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
+.pin-photo {
+  width: 120px;
+  height: 80px;
   border-radius: 12px;
-  padding: 0;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  width: 280px;
-  overflow: hidden;
-  border: 1px solid rgba(243, 156, 18, 0.2);
-  margin-bottom: 10px;
-}
-
-.location-pin:hover .location-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-10px);
-}
-
-.tooltip-image {
-  width: 100%;
-  height: 120px;
   background-size: cover;
   background-position: center;
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border: 3px solid white;
+  transition: all 0.3s ease;
 }
 
-.tooltip-image::after {
-  content: '';
+.photo-pin:hover .pin-photo {
+  transform: scale(1.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.pin-overlay {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.1));
-}
-
-.tooltip-content {
-  padding: 1rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  padding: 0.5rem;
   text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.8rem;
 }
 
-.tooltip-content h4 {
+.photo-pin:hover .pin-overlay {
+  opacity: 1;
+}
+
+.pin-overlay h4 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  color: #2c3e50;
-  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
   font-weight: 600;
 }
 
-.tooltip-content span {
-  color: #f39c12;
-  font-size: 0.85rem;
-  font-weight: 500;
+.pin-overlay span {
+  font-size: 0.7rem;
+  opacity: 0.9;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.map-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 4;
+.location-message {
   text-align: center;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3rem;
   border-radius: 20px;
-  padding: 2.5rem;
-  max-width: 400px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
 }
 
-.message-icon {
-  color: #f39c12;
-  margin-bottom: 1rem;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-.anywhere-message h3 {
+.location-message h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: #2c3e50;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
-.anywhere-message p {
+.location-message p {
   color: #555;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
 }
 
 .location-cta {
   background: linear-gradient(135deg, #f39c12, #e67e22);
   color: white;
   border: none;
-  padding: 0.8rem 1.8rem;
+  padding: 1rem 2rem;
   border-radius: 25px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
@@ -1480,105 +1419,55 @@ body {
   box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
 }
 
-.location-features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 4rem;
-}
-
-.feature-item {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 2rem;
-  border-radius: 15px;
-  border: 1px solid rgba(243, 156, 18, 0.1);
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.feature-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-  border-color: rgba(243, 156, 18, 0.2);
-}
-
-.feature-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.feature-item h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  color: #2c3e50;
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-}
-
-.feature-item p {
-  color: #666;
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
 /* Responsive adjustments for locations section */
 @media (max-width: 768px) {
   .locations-section {
     padding: 6rem 0;
   }
   
-  .map-background {
+  .location-gallery {
     height: 400px;
   }
   
-  .map-overlay {
+  .pin-photo {
+    width: 100px;
+    height: 70px;
+  }
+  
+  .location-message {
     padding: 2rem;
-    max-width: 90%;
+    margin: 0 1rem;
   }
   
-  .anywhere-message h3 {
-    font-size: 1.5rem;
+  .location-message h3 {
+    font-size: 1.6rem;
   }
   
-  .location-tooltip {
-    width: 240px;
-  }
-  
-  .location-features {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .feature-item {
-    padding: 1.5rem;
+  .location-message p {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .map-background {
+  .location-gallery {
     height: 300px;
   }
   
-  .map-overlay {
+  .pin-photo {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .location-message {
     padding: 1.5rem;
   }
   
-  .anywhere-message h3 {
-    font-size: 1.3rem;
+  .location-message h3 {
+    font-size: 1.4rem;
   }
   
-  .anywhere-message p {
+  .location-message p {
     font-size: 0.9rem;
-  }
-  
-  .location-tooltip {
-    width: 200px;
-  }
-  
-  .tooltip-image {
-    height: 100px;
   }
 }
 
