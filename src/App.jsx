@@ -70,12 +70,12 @@ export default function App() {
   }, [])
 
   const portfolioItems = [
-    { title: 'Golden Hour Ceremony', category: 'Ceremony', gradient: 'linear-gradient(135deg, #ff9a56, #fad0c4)' },
-    { title: 'Bridal Portrait', category: 'Portraits', gradient: 'linear-gradient(135deg, #a8caba, #5d4e75)' },
-    { title: 'Reception Details', category: 'Details', gradient: 'linear-gradient(135deg, #f093fb, #f5576c)' },
-    { title: 'First Dance', category: 'Reception', gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)' },
-    { title: 'Wedding Rings', category: 'Details', gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)' },
-    { title: 'Couple Portrait', category: 'Portraits', gradient: 'linear-gradient(135deg, #fa709a, #fee140)' }
+    { title: 'Golden Hour Ceremony', category: 'Ceremony', image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { title: 'Bridal Portrait', category: 'Portraits', image: 'https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { title: 'Reception Details', category: 'Details', image: 'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { title: 'First Dance', category: 'Reception', image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { title: 'Wedding Rings', category: 'Details', image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { title: 'Couple Portrait', category: 'Portraits', image: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
   ]
 
   const filteredItems = activeFilter === 'All' 
@@ -134,8 +134,12 @@ export default function App() {
           <div className="about-content">
             <div className="polaroid-reveal">
               <div className="polaroid-frame">
-                <div className="photographer-image">
-                  <span>Professional Portrait</span>
+                <div className="photographer-image" style={{
+                  backgroundImage: 'url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80)'
+                }}>
+                  <div className="photographer-overlay">
+                    <span>Professional Portrait</span>
+                  </div>
                 </div>
                 <div className="polaroid-caption">Capturing emotions since 2015</div>
               </div>
@@ -189,8 +193,10 @@ export default function App() {
                 }}
                 onClick={playShutterSound}
               >
-                <div className="photo-content" style={{ background: item.gradient }}>
-                  <span>{item.title}</span>
+                <div className="photo-content" style={{ backgroundImage: `url(${item.image})` }}>
+                  <div className="photo-overlay">
+                    <span>{item.title}</span>
+                  </div>
                 </div>
                 <div className="photo-shadow"></div>
               </div>
@@ -219,9 +225,16 @@ export default function App() {
                   <p className="moment-quote">"{moment.quote}"</p>
                 </div>
                 <div className="moment-image" style={{ 
-                  background: `linear-gradient(135deg, ${index % 2 === 0 ? '#ff9a56, #fad0c4' : '#a8caba, #5d4e75'})` 
+                  backgroundImage: `url(https://images.unsplash.com/photo-${
+                    index === 0 ? '1465495976277-4387d4b0e4c6' :
+                    index === 1 ? '1606216794074-735e91aa2c92' :
+                    index === 2 ? '1519741497674-611481863552' :
+                    index === 3 ? '1537633552985-df8429e8048b' : '1511285560929-80b456fea0bc'
+                  }?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80)`
                 }}>
-                  <span>Memory Captured</span>
+                  <div className="moment-overlay">
+                    <span>Memory Captured</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -249,10 +262,10 @@ export default function App() {
                   <div className="sprocket"></div>
                 </div>
                 <div className="film-content" style={{
-                  background: `linear-gradient(135deg, ${
-                    index === 0 ? '#ff9a56, #fad0c4' :
-                    index === 1 ? '#a8caba, #5d4e75' : '#f093fb, #f5576c'
-                  })`
+                  backgroundImage: `url(https://images.unsplash.com/photo-${
+                    index === 0 ? '1606216794074-735e91aa2c92' :
+                    index === 1 ? '1519741497674-611481863552' : '1511285560929-80b456fea0bc'
+                  }?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80)`
                 }}>
                   <div className="play-button">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
@@ -284,12 +297,14 @@ export default function App() {
               <div key={index} className="bts-card" onClick={playShutterSound}>
                 <div className="lens-flare"></div>
                 <div className="bts-image" style={{
-                  background: `linear-gradient(135deg, ${
-                    index === 0 ? '#ff9a56, #fad0c4' :
-                    index === 1 ? '#a8caba, #5d4e75' : '#f093fb, #f5576c'
-                  })`
+                  backgroundImage: `url(https://images.unsplash.com/photo-${
+                    index === 0 ? '1492691527719-9d1e07e534b6' :
+                    index === 1 ? '1465495976277-4387d4b0e4c6' : '1594736797933-d0b22a5e8bf2'
+                  }?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80)`
                 }}>
-                  <span>{item.title}</span>
+                  <div className="bts-overlay">
+                    <span>{item.title}</span>
+                  </div>
                 </div>
                 <h3>{item.title}</h3>
                 <p>{item.desc}</p>
@@ -307,11 +322,15 @@ export default function App() {
               <div key={i} className="golden-frame">
                 <div className="shutter-transition"></div>
                 <div className="golden-image" style={{
-                  background: `linear-gradient(135deg, ${
-                    ['#ff9a56, #fad0c4', '#a8caba, #5d4e75', '#f093fb, #f5576c', '#4facfe, #00f2fe'][i % 4]
-                  })`
+                  backgroundImage: `url(https://images.unsplash.com/photo-${
+                    ['1606216794074-735e91aa2c92', '1537633552985-df8429e8048b', '1519741497674-611481863552', 
+                     '1511285560929-80b456fea0bc', '1594736797933-d0b22a5e8bf2', '1465495976277-4387d4b0e4c6',
+                     '1583939003579-730e3918a45a', '1492691527719-9d1e07e534b6'][i]
+                  }?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)`
                 }}>
-                  <span>Golden Moment {i + 1}</span>
+                  <div className="golden-overlay">
+                    <span>Golden Moment {i + 1}</span>
+                  </div>
                 </div>
               </div>
             ))}
