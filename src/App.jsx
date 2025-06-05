@@ -758,8 +758,7 @@ export default function App() {
           onClick={closePortfolioModal}
           role="dialog"
           aria-modal="true"
-          aria-labelledby="modal-title"
-          aria-describedby="modal-description"
+          aria-label="Portfolio image viewer"
         >
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button 
@@ -782,31 +781,6 @@ export default function App() {
                 className={`modal-image ${imagesLoaded[`modal-${selectedPortfolioItem.id}`] ? 'loaded' : ''}`}
                 onLoad={() => handleImageLoad(`modal-${selectedPortfolioItem.id}`)}
               />
-            </div>
-            
-            <div className="modal-info">
-              <h3 id="modal-title">{selectedPortfolioItem.title}</h3>
-              <div className="modal-meta">
-                <span className="modal-category">{selectedPortfolioItem.category}</span>
-                <span className="modal-location">{selectedPortfolioItem.location}</span>
-                <span className="modal-date">{selectedPortfolioItem.date}</span>
-              </div>
-              <p id="modal-description">{selectedPortfolioItem.description}</p>
-              
-              <div className="modal-actions">
-                <button className="modal-btn primary">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                  </svg>
-                  Inquire About This Style
-                </button>
-                <button className="modal-btn secondary">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-                  </svg>
-                  View Similar Work
-                </button>
-              </div>
             </div>
           </div>
         </div>
