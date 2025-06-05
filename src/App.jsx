@@ -8,6 +8,7 @@ export default function App() {
   const [isVisible, setIsVisible] = useState({})
   const [isNavVisible, setIsNavVisible] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const heroRef = useRef(null)
   const portfolioRef = useRef(null)
   const audioRef = useRef(null)
@@ -79,6 +80,7 @@ export default function App() {
         block: 'start'
       })
     }
+    setIsMobileMenuOpen(false) // Close mobile menu when navigating
   }
 
   const portfolioItems = [
@@ -103,7 +105,17 @@ export default function App() {
             <span>Captured in Light</span>
           </div>
 
-          <div className="nav-links">
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
+          </button>
+
+          <div className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
             <button onClick={() => scrollToSection('about')} className="nav-link">
               About
             </button>
