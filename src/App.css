@@ -291,16 +291,18 @@ section {
 .title-emphasis {
   font-weight: 700;
   background: linear-gradient(45deg, #fff 0%, #f39c12 50%, #fff 100%);
+  background-size: 200% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: none;
-  animation: shimmer 3s ease-in-out infinite;
+  background-position: -100% 50%;
+  animation: shimmer 2s ease-out forwards;
 }
 
 @keyframes shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0% { background-position: -100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hero-subtitle {
