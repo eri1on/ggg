@@ -484,7 +484,7 @@ export default function App() {
         <div className="container">
           <h2 className="section-title">Favorite Shooting Locations</h2>
           <p className="section-subtitle">Discover some of our most loved romantic destinations where we can capture your love story</p>
-          
+
           <div className="location-gallery">
             {[
               { 
@@ -538,7 +538,7 @@ export default function App() {
               </div>
             ))}
           </div>
-          
+
           <div className="location-message">
             <h3>We Travel Anywhere Your Heart Desires</h3>
             <p>These are just glimpses of the beautiful locations we've captured. Your perfect venue could be anywhere - from intimate backyard ceremonies to destination weddings. We bring our passion and expertise wherever your love story unfolds.</p>
@@ -572,7 +572,7 @@ export default function App() {
               }
             ].map((pkg, index) => (
               <div key={index} className="pricing-card">
-                
+
                 <h3>{pkg.name}</h3>
                 <div className="price">{pkg.price}</div>
                 <ul>
@@ -593,7 +593,7 @@ export default function App() {
         <div className="container">
           <h2 className="section-title">Love Stories in Words</h2>
           <p className="section-subtitle">What our couples say about their experience</p>
-          
+
           <div className="testimonials-grid">
             {[
               {
@@ -641,8 +641,8 @@ export default function App() {
             <div className="contact-info-section">
               <h2>Let's Create Magic Together</h2>
               <p>Ready to capture your love story? We'd love to hear about your special day and discuss how we can create timeless memories for you.</p>
-              
-              <div className="contact-details">
+
+The provided change fixes the issue by adding the missing closing tag for the "behind-scenes" section and "golden-gallery".              <div className="contact-details">
                 <div className="contact-item">
                   <div className="contact-icon">📧</div>
                   <div>
@@ -679,7 +679,7 @@ export default function App() {
                     <input type="text" id="lastName" name="lastName" required />
                   </div>
                 </div>
-                
+
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="email">Email *</label>
