@@ -1,0 +1,138 @@
+.
+
+💡 OVERALL THEME
+Color palette: Warm golds, peach, amber, muted lilacs, soft whites
+
+Fonts: Elegant serif (like Playfair Display or Cormorant) + minimalist sans-serif (like Inter or Lato)
+
+Textures: Film grain overlay, light leaks, soft glows, glassmorphism panels
+
+Feel: Sunset, cinematic, elegant, and alive
+
+🌅 FINAL SECTION STRUCTURE (With Cool Replacements)
+1. 🎥 Hero Section — Cinematic Opener
+Full screen video background (slow-motion golden hour moment)
+
+Subtle "dust particles" float via CSS or canvas
+
+Central text overlay:
+
+objectivec
+Copy
+Edit
+CAPTURED IN LIGHT  
+Romantic Wedding Stories Told in Still & Motion
+Optional music toggle icon in corner (muted by default)
+
+2. 📸 Scroll Section — "Say Cheese" Camera Effect
+Title: “Every Moment is a Shot Worth Taking”
+
+As the user scrolls down:
+
+A camera animation "zooms" in (can be a subtle SVG scale)
+
+A "cheese!" audio + camera click is played
+
+The section transitions from dark to light, simulating a flash
+
+Content:
+
+2–3 stunning hero images
+
+Each fades in with subtle vertical scroll and sound
+
+3. 🧡 Couples Gallery Wall (Replaces Testimonials)
+Masonry layout or dynamic grid
+
+Each photo:
+
+Hover: slight lift + glow
+
+Click: zoom modal with sound + slight Ken Burns zoom
+
+Optional sort filters:
+Classic | Boho | Luxury | Sunset | Destination
+
+4. 🎞️ Interactive Wedding Day Timeline
+Horizontal scroll or stepped vertical scroll
+
+Each block shows:
+
+📸 1 photo
+
+💬 A poetic caption:
+
+“The hush before the vows...”
+
+Fade-in animation
+
+Light ambient audio cue when entering each step (can be toggled off)
+
+5. 🎬 "Motion Memories" Film Section
+Title: “Short Films of Forever”
+
+Layout Option: Film strip scroll or floating video frames
+
+Hover: short loop preview plays silently
+
+Click: Fullscreen custom modal opens
+
+Background dims like a cinema
+
+Add a projector “flicker” SFX as modal opens
+
+6. 📍Weddings Around the World (Optional)
+Stylized map (sepia or watercolor style)
+
+Hover over pins to see small photo + story snippet
+
+Adds credibility and diversity
+
+7. 🔧 Behind the Scenes (Replaces Contact)
+Title: “Moments Behind the Lens”
+
+3–4 video clips or gifs (looping)
+
+Photographer adjusting a veil
+
+Changing lenses during golden hour
+
+Helping a bride pose
+
+On scroll:
+
+Shutter sound + lens flare fade-in
+
+Clips appear one by one like Polaroids sliding in
+
+Optional quote:
+
+“It’s not just light I capture—it's emotion frozen in time.”
+
+8. 🌇 Golden Hour Carousel (Grand Finale)
+Full width, soft-scroll horizontal gallery
+
+All images taken at golden hour
+
+Transitions mimic camera shutter open/close
+
+Overlay subtle film grain + bokeh
+
+Footer fades in gently:
+
+less
+Copy
+Edit
+Captured in Light
+Est. 2014 | Based in [City] | Serving Couples Worldwide
+🔥 Bonus Details
+Cursor changes to camera viewfinder when hovering over interactive elements
+
+Light leaks or soft glows on image entry
+
+Floating bokeh or dust on hero and golden hour sections (via canvas or CSS)
+
+Lazy loading with staggered animation
+
+Muted instrumental toggle (think violin, ambient wedding soundscapes)
+
