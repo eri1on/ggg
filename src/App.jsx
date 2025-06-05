@@ -9,6 +9,10 @@ export default function App() {
   const [isNavVisible, setIsNavVisible] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [imagesLoaded, setImagesLoaded] = useState({})
+  const [selectedPortfolioItem, setSelectedPortfolioItem] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const heroRef = useRef(null)
   const portfolioRef = useRef(null)
   const audioRef = useRef(null)
@@ -30,13 +34,41 @@ export default function App() {
     }
   }
 
+  const handleImageLoad = (imageKey) => {
+    setImagesLoaded(prev => ({ ...prev, [imageKey]: true }))
+  }
+
+  const openPortfolioModal = (item) => {
+    setSelectedPortfolioItem(item)
+    setIsModalOpen(true)
+    document.body.style.overflow = 'hidden'
+  }
+
+  const closePortfolioModal = () => {
+    setIsModalOpen(false)
+    setSelectedPortfolioItem(null)
+    document.body.style.overflow = 'auto'
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Escape' && isModalOpen) {
+      closePortfolioModal()
+    }
+  }
+
   useEffect(() => {
+    // Initialize loading state
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1500)
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       setIsNavVisible(scrollPosition > 100)
     }
 
     window.addEventListener('scroll', handleScroll)
+    window.addEventListener('keydown', handleKeyPress)
 
     // Auto-advance slideshow
     const slideInterval = setInterval(() => {
@@ -68,7 +100,9 @@ export default function App() {
     return () => {
       observer.disconnect()
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('keydown', handleKeyPress)
       clearInterval(slideInterval)
+      clearTimeout(timer)
     }
   }, [])
 
@@ -84,12 +118,66 @@ export default function App() {
   }
 
   const portfolioItems = [
-    { title: 'Golden Hour Ceremony', category: 'Ceremony', image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { title: 'Bridal Portrait', category: 'Portraits', image: 'https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { title: 'Reception Details', category: 'Details', image: 'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { title: 'First Dance', category: 'Reception', image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { title: 'Wedding Rings', category: 'Details', image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { title: 'Couple Portrait', category: 'Portraits', image: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }
+    { 
+      id: 1,
+      title: 'Golden Hour Ceremony', 
+      category: 'Ceremony', 
+      image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      fullImage: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      description: 'A breathtaking ceremony captured during the magical golden hour, where natural light creates the perfect romantic atmosphere.',
+      location: 'Malibu Creek State Park',
+      date: 'June 2023'
+    },
+    { 
+      id: 2,
+      title: 'Bridal Portrait', 
+      category: 'Portraits', 
+      image: 'https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      fullImage: 'https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      description: 'An elegant bridal portrait showcasing the intricate details of the dress and the bride\'s natural beauty.',
+      location: 'Beverly Hills Hotel',
+      date: 'August 2023'
+    },
+    { 
+      id: 3,
+      title: 'Reception Details', 
+      category: 'Details', 
+      image: 'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      fullImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      description: 'Beautiful reception details capturing the carefully curated atmosphere and romantic ambiance.',
+      location: 'Terranea Resort',
+      date: 'September 2023'
+    },
+    { 
+      id: 4,
+      title: 'First Dance', 
+      category: 'Reception', 
+      image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      fullImage: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      description: 'An intimate moment during the couple\'s first dance, surrounded by the warm glow of candlelight.',
+      location: 'Huntington Library',
+      date: 'October 2023'
+    },
+    { 
+      id: 5,
+      title: 'Wedding Rings', 
+      category: 'Details', 
+      image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      fullImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      description: 'Symbolic wedding rings captured with artistic detail, representing the eternal bond of love.',
+      location: 'Vibiana',
+      date: 'November 2023'
+    },
+    { 
+      id: 6,
+      title: 'Couple Portrait', 
+      category: 'Portraits', 
+      image: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      fullImage: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      description: 'A romantic couple portrait showcasing their connection and love in a stunning natural setting.',
+      location: 'Griffith Observatory',
+      date: 'December 2023'
+    }
   ]
 
   const filteredItems = activeFilter === 'All' 
@@ -98,6 +186,24 @@ export default function App() {
 
   return (
     <div className="App">
+      {/* Loading Screen */}
+      {isLoading && (
+        <div className="loading-screen" aria-label="Loading website content">
+          <div className="loading-content">
+            <div className="camera-loading">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </div>
+            <h2>Captured in Light</h2>
+            <div className="loading-bar">
+              <div className="loading-progress"></div>
+            </div>
+            <p>Preparing your magical journey...</p>
+          </div>
+        </div>
+      )}
       {/* Navigation Bar */}
       <nav className={`navbar ${isNavVisible ? 'visible' : ''}`}>
         <div className="nav-container">
@@ -108,7 +214,8 @@ export default function App() {
           <button 
             className="mobile-menu-toggle"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
           >
             <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
             <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
@@ -144,9 +251,24 @@ export default function App() {
           {heroImages.map((image, index) => (
             <div 
               key={index}
-              className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-              style={{ backgroundImage: `url(${image})` }}
+              className={`hero-slide ${index === currentSlide ? 'active' : ''} ${imagesLoaded[`hero-${index}`] ? 'loaded' : ''}`}
             >
+              {!imagesLoaded[`hero-${index}`] && (
+                <div className="image-skeleton">
+                  <div className="skeleton-shimmer"></div>
+                </div>
+              )}
+              <img 
+                src={image} 
+                alt={`Wedding photography slide ${index + 1}`}
+                loading={index === 0 ? "eager" : "lazy"}
+                onLoad={() => handleImageLoad(`hero-${index}`)}
+                style={{ display: 'none' }}
+              />
+              <div 
+                className="slide-image"
+                style={{ backgroundImage: imagesLoaded[`hero-${index}`] ? `url(${image})` : 'none' }}
+              ></div>
               <div className="slide-overlay"></div>
             </div>
           ))}
@@ -248,16 +370,42 @@ export default function App() {
           <div className="photo-wall">
             {filteredItems.map((item, index) => (
               <div 
-                key={index} 
+                key={item.id} 
                 className="photo-frame"
                 style={{ 
                   transform: `rotate(${(index % 2 === 0 ? 1 : -1) * (Math.random() * 4 + 1)}deg)`,
                   animationDelay: `${index * 0.2}s`
                 }}
+                onClick={() => openPortfolioModal(item)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${item.title} portfolio item`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openPortfolioModal(item)
+                  }
+                }}
               >
-                <div className="photo-content" style={{ backgroundImage: `url(${item.image})` }}>
+                {!imagesLoaded[`portfolio-${item.id}`] && (
+                  <div className="image-skeleton">
+                    <div className="skeleton-shimmer"></div>
+                  </div>
+                )}
+                <img 
+                  src={item.image} 
+                  alt={item.title}
+                  loading="lazy"
+                  onLoad={() => handleImageLoad(`portfolio-${item.id}`)}
+                  style={{ display: 'none' }}
+                />
+                <div 
+                  className={`photo-content ${imagesLoaded[`portfolio-${item.id}`] ? 'loaded' : ''}`} 
+                  style={{ backgroundImage: imagesLoaded[`portfolio-${item.id}`] ? `url(${item.image})` : 'none' }}
+                >
                   <div className="photo-overlay">
                     <span>{item.title}</span>
+                    <div className="view-more">Click to view details</div>
                   </div>
                 </div>
                 <div className="photo-shadow"></div>
@@ -602,6 +750,67 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Portfolio Modal */}
+      {isModalOpen && selectedPortfolioItem && (
+        <div 
+          className="modal-overlay" 
+          onClick={closePortfolioModal}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+        >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="modal-close" 
+              onClick={closePortfolioModal}
+              aria-label="Close modal"
+            >
+              ×
+            </button>
+            
+            <div className="modal-image-container">
+              {!imagesLoaded[`modal-${selectedPortfolioItem.id}`] && (
+                <div className="image-skeleton modal-skeleton">
+                  <div className="skeleton-shimmer"></div>
+                </div>
+              )}
+              <img 
+                src={selectedPortfolioItem.fullImage} 
+                alt={selectedPortfolioItem.title}
+                className={`modal-image ${imagesLoaded[`modal-${selectedPortfolioItem.id}`] ? 'loaded' : ''}`}
+                onLoad={() => handleImageLoad(`modal-${selectedPortfolioItem.id}`)}
+              />
+            </div>
+            
+            <div className="modal-info">
+              <h3 id="modal-title">{selectedPortfolioItem.title}</h3>
+              <div className="modal-meta">
+                <span className="modal-category">{selectedPortfolioItem.category}</span>
+                <span className="modal-location">{selectedPortfolioItem.location}</span>
+                <span className="modal-date">{selectedPortfolioItem.date}</span>
+              </div>
+              <p id="modal-description">{selectedPortfolioItem.description}</p>
+              
+              <div className="modal-actions">
+                <button className="modal-btn primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
+                  Inquire About This Style
+                </button>
+                <button className="modal-btn secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                  </svg>
+                  View Similar Work
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
