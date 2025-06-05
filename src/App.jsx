@@ -7,6 +7,7 @@ export default function App() {
   const [musicPlaying, setMusicPlaying] = useState(false)
   const [activeFilter, setActiveFilter] = useState('All')
   const [isVisible, setIsVisible] = useState({})
+  const [isNavVisible, setIsNavVisible] = useState(false)
   const heroRef = useRef(null)
   const portfolioRef = useRef(null)
   const audioRef = useRef(null)
@@ -44,6 +45,13 @@ export default function App() {
   }
 
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      setIsNavVisible(scrollPosition > 100)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -66,8 +74,21 @@ export default function App() {
       observer.observe(section)
     })
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
 
   const portfolioItems = [
     { title: 'Golden Hour Ceremony', category: 'Ceremony', image: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
@@ -84,6 +105,36 @@ export default function App() {
 
   return (
     <div className="App">
+      {/* Navigation Bar */}
+      <nav className={`navbar ${isNavVisible ? 'visible' : ''}`}>
+        <div className="nav-container">
+          <div className="nav-brand" onClick={() => scrollToSection('hero')}>
+            <span>Captured in Light</span>
+          </div>
+          
+          <div className="nav-links">
+            <button onClick={() => scrollToSection('about')} className="nav-link">
+              About
+            </button>
+            <button onClick={() => scrollToSection('portfolio-section')} className="nav-link">
+              Portfolio
+            </button>
+            <button onClick={() => scrollToSection('timeline')} className="nav-link">
+              Timeline
+            </button>
+            <button onClick={() => scrollToSection('motion')} className="nav-link">
+              Films
+            </button>
+            <button onClick={() => scrollToSection('pricing')} className="nav-link">
+              Pricing
+            </button>
+            <button onClick={() => scrollToSection('footer')} className="contact-btn">
+              Contact
+            </button>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section id="hero" className="hero" ref={heroRef}>
         <div className="hero-video-bg">
@@ -403,7 +454,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer id="footer" className="footer">
         <div className="container">
           <div className="footer-content">
             <div className="footer-brand">
