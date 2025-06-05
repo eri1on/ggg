@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 
@@ -18,16 +17,16 @@ export default function App() {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)()
       const oscillator = audioContext.createOscillator()
       const gainNode = audioContext.createGain()
-      
+
       oscillator.connect(gainNode)
       gainNode.connect(audioContext.destination)
-      
+
       oscillator.frequency.setValueAtTime(800, audioContext.currentTime)
       oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1)
-      
+
       gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
       gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2)
-      
+
       oscillator.start(audioContext.currentTime)
       oscillator.stop(audioContext.currentTime + 0.2)
     } catch (e) {
@@ -62,7 +61,7 @@ export default function App() {
         if (entry.isIntersecting) {
           const id = entry.target.id
           setIsVisible(prev => ({ ...prev, [id]: true }))
-          
+
           if (id === 'portfolio-section') {
             setTimeout(handleCameraEffect, 800)
           }
@@ -111,7 +110,7 @@ export default function App() {
           <div className="nav-brand" onClick={() => scrollToSection('hero')}>
             <span>Captured in Light</span>
           </div>
-          
+
           <div className="nav-links">
             <button onClick={() => scrollToSection('about')} className="nav-link">
               About
@@ -142,7 +141,7 @@ export default function App() {
           <div className="floating-particles"></div>
           <div className="film-grain"></div>
         </div>
-        
+
         <div className="hero-content">
           <div className="camera-breathe">
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -150,29 +149,17 @@ export default function App() {
               <circle cx="12" cy="13" r="3"/>
             </svg>
           </div>
-          
+
           <h1 className="hero-title">
             <span className="title-line">Your Love,</span>
             <span className="title-line title-emphasis">Captured in Light</span>
           </h1>
-          
+
           <p className="hero-subtitle">Timeless Wedding Photography & Cinematography</p>
+
           
-          <button 
-            className={`music-toggle ${musicPlaying ? 'playing' : ''}`}
-            onClick={() => setMusicPlaying(!musicPlaying)}
-            aria-label="Toggle ambient music"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              {musicPlaying ? (
-                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-              ) : (
-                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-              )}
-            </svg>
-          </button>
         </div>
-        
+
         <div className="scroll-indicator">
           <div className="sunbeam"></div>
           <span>Scroll to explore</span>
@@ -195,7 +182,7 @@ export default function App() {
                 <div className="polaroid-caption">Capturing emotions since 2015</div>
               </div>
             </div>
-            
+
             <div className="about-text">
               <h2>The Art of Storytelling</h2>
               <p>Every wedding tells a unique story of love, and I'm here to capture those fleeting moments that become lifelong memories. With over 8 years of experience, I specialize in creating timeless imagery that reflects the authentic emotions of your special day.</p>
@@ -217,10 +204,10 @@ export default function App() {
             <circle cx="12" cy="13" r="3"/>
           </svg>
         </div>
-        
+
         <div className="container">
           <h2 className="section-title">Portfolio Gallery</h2>
-          
+
           <div className="gallery-filters">
             {['All', 'Ceremony', 'Portraits', 'Reception', 'Details'].map(filter => (
               <button 
@@ -232,7 +219,7 @@ export default function App() {
               </button>
             ))}
           </div>
-          
+
           <div className="photo-wall">
             {filteredItems.map((item, index) => (
               <div 
@@ -242,7 +229,6 @@ export default function App() {
                   transform: `rotate(${(index % 2 === 0 ? 1 : -1) * (Math.random() * 4 + 1)}deg)`,
                   animationDelay: `${index * 0.2}s`
                 }}
-                onClick={playShutterSound}
               >
                 <div className="photo-content" style={{ backgroundImage: `url(${item.image})` }}>
                   <div className="photo-overlay">
@@ -325,14 +311,14 @@ export default function App() {
         <div className="container">
           <h2 className="section-title">Motion Memories</h2>
           <p className="section-subtitle">Short films of forever</p>
-          
+
           <div className="film-reel">
             {[
               'Highlight Reel', 
               'Ceremony Film', 
               'Reception Celebration'
             ].map((title, index) => (
-              <div key={index} className="film-frame" onClick={playShutterSound}>
+              <div key={index} className="film-frame" >
                 <div className="film-sprockets">
                   <div className="sprocket"></div>
                   <div className="sprocket"></div>
@@ -364,14 +350,14 @@ export default function App() {
           <blockquote className="photographer-quote">
             "It's not just photos. It's a feeling I try to catch, frame by frame."
           </blockquote>
-          
+
           <div className="bts-grid">
             {[
               { title: 'Preparation', desc: 'Every shot planned with intention and care' },
               { title: 'In the Moment', desc: 'Capturing authentic emotions as they unfold' },
               { title: 'Perfect Timing', desc: 'Years of experience in finding the right light' }
             ].map((item, index) => (
-              <div key={index} className="bts-card" onClick={playShutterSound}>
+              <div key={index} className="bts-card" >
                 <div className="lens-flare"></div>
                 <div className="bts-image" style={{
                   backgroundImage: `url(https://images.unsplash.com/photo-${
@@ -438,7 +424,7 @@ export default function App() {
               }
             ].map((pkg, index) => (
               <div key={index} className="pricing-card">
-                <div className="invitation-fold"></div>
+                
                 <h3>{pkg.name}</h3>
                 <div className="price">{pkg.price}</div>
                 <ul>
@@ -460,7 +446,7 @@ export default function App() {
             <div className="footer-brand">
               <h3>Captured in Light</h3>
               <p>Creating timeless memories through the art of photography. Every wedding tells a unique story, and we're here to preserve those precious moments forever.</p>
-              
+
               <div className="social-links">
                 <a href="#" className="social-link" aria-label="Instagram">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -479,7 +465,7 @@ export default function App() {
                 </a>
               </div>
             </div>
-            
+
             <div className="footer-services">
               <h4>Services</h4>
               <ul>
@@ -491,7 +477,7 @@ export default function App() {
                 <li>Elopement Packages</li>
               </ul>
             </div>
-            
+
             <div className="footer-contact">
               <h4>Get in Touch</h4>
               <div className="contact-info">
@@ -509,7 +495,7 @@ export default function App() {
                 </div>
               </div>
             </div>
-            
+
             <div className="footer-bottom">
               <p>© 2024 Captured in Light Photography <span className="divider">|</span> All Rights Reserved <span className="divider">|</span> Privacy Policy</p>
             </div>
