@@ -190,7 +190,8 @@ export default function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className={`about-section ${isVisible.about ? 'visible' : ''}`}>
+      <section id="about" className={`about-section romantic-background ${isVisible.about ? 'visible' : ''}`}>
+        <div className="falling-leaves"></div>
         <div className="container">
           <div className="about-content">
             <div className="polaroid-reveal">
@@ -219,7 +220,8 @@ export default function App() {
       </section>
 
       {/* Portfolio Section with Camera Effect */}
-      <section id="portfolio-section" className={`portfolio-section ${isVisible['portfolio-section'] ? 'visible' : ''}`}>
+      <section id="portfolio-section" className={`portfolio-section romantic-background ${isVisible['portfolio-section'] ? 'visible' : ''}`}>
+        <div className="falling-leaves"></div>
         <div className="camera-flash"></div>
         <div className="floating-camera">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -266,7 +268,8 @@ export default function App() {
       </section>
 
       {/* Wedding Timeline */}
-      <section id="timeline" className={`timeline-section ${isVisible.timeline ? 'visible' : ''}`}>
+      <section id="timeline" className={`timeline-section romantic-background ${isVisible.timeline ? 'visible' : ''}`}>
+        <div className="falling-leaves"></div>
         <div className="container">
           <h2 className="section-title">A Day in Moments</h2>
           <div className="timeline-scroll">
@@ -329,7 +332,8 @@ export default function App() {
       </section>
 
       {/* Motion Memories */}
-      <section id="motion" className={`motion-section ${isVisible.motion ? 'visible' : ''}`}>
+      <section id="motion" className={`motion-section romantic-background ${isVisible.motion ? 'visible' : ''}`}>
+        <div className="falling-leaves"></div>
         <div className="cinema-bg"></div>
         <div className="container">
           <h2 className="section-title">Motion Memories</h2>
@@ -367,7 +371,8 @@ export default function App() {
       </section>
 
       {/* Behind the Scenes */}
-      <section id="behind-scenes" className={`behind-scenes ${isVisible['behind-scenes'] ? 'visible' : ''}`}>
+      <section id="behind-scenes" className={`behind-scenes romantic-background ${isVisible['behind-scenes'] ? 'visible' : ''}`}>
+        <div className="falling-leaves"></div>
         <div className="container">
           <h2 className="section-title">Behind the Lens</h2>
           <blockquote className="photographer-quote">
@@ -401,7 +406,8 @@ export default function App() {
       </section>
 
       {/* Golden Hour Gallery */}
-      <section id="golden-gallery" className="golden-gallery">
+      <section id="golden-gallery" className="golden-gallery romantic-background">
+        <div className="falling-leaves"></div>
         <div className="carousel-container">
           <div className="golden-carousel">
             {Array.from({length: 8}, (_, i) => (
@@ -425,7 +431,8 @@ export default function App() {
       </section>
 
       {/* Location Showcase */}
-      <section id="locations" className={`locations-section ${isVisible.locations ? 'visible' : ''}`}>
+      <section id="locations" className={`locations-section romantic-background ${isVisible.locations ? 'visible' : ''}`}>
+        <div className="falling-leaves"></div>
         <div className="container">
           <h2 className="section-title">Favorite Shooting Locations</h2>
           <p className="section-subtitle">Discover some of our most loved romantic destinations where we can capture your love story</p>
