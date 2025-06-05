@@ -7,9 +7,19 @@ export default function App() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [isVisible, setIsVisible] = useState({})
   const [isNavVisible, setIsNavVisible] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
   const heroRef = useRef(null)
   const portfolioRef = useRef(null)
   const audioRef = useRef(null)
+
+  // Slideshow images for hero section
+  const heroImages = [
+    'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+    'https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
+  ]
 
   const playShutterSound = () => {
     // Create audio context for shutter sound
@@ -51,6 +61,11 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll)
 
+    // Auto-advance slideshow
+    const slideInterval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % heroImages.length)
+    }, 5000) // Change slide every 5 seconds
+
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -76,6 +91,7 @@ export default function App() {
     return () => {
       observer.disconnect()
       window.removeEventListener('scroll', handleScroll)
+      clearInterval(slideInterval)
     }
   }, [])
 
@@ -136,8 +152,16 @@ export default function App() {
 
       {/* Hero Section */}
       <section id="hero" className="hero" ref={heroRef}>
-        <div className="hero-video-bg">
-          <div className="video-overlay"></div>
+        <div className="hero-slideshow">
+          {heroImages.map((image, index) => (
+            <div 
+              key={index}
+              className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+              style={{ backgroundImage: `url(${image})` }}
+            >
+              <div className="slide-overlay"></div>
+            </div>
+          ))}
           <div className="floating-particles"></div>
           <div className="film-grain"></div>
         </div>
@@ -156,8 +180,19 @@ export default function App() {
           </h1>
 
           <p className="hero-subtitle">Timeless Wedding Photography & Cinematography</p>
+        </div>
 
-          
+        <div className="slideshow-controls">
+          <div className="slide-indicators">
+            {heroImages.map((_, index) => (
+              <button
+                key={index}
+                className={`slide-indicator ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="scroll-indicator">
