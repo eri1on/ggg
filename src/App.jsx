@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 
@@ -10,8 +9,6 @@ export default function App() {
   const [isNavVisible, setIsNavVisible] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [selectedPortfolioItem, setSelectedPortfolioItem] = useState(null)
   const heroRef = useRef(null)
   const portfolioRef = useRef(null)
   const audioRef = useRef(null)
@@ -99,32 +96,6 @@ export default function App() {
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === activeFilter)
 
-  // Simulate loading
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (isLoading) {
-    return (
-      <div className="loading-screen">
-        <div className="loading-content">
-          <div className="camera-loading">
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
-              <circle cx="12" cy="13" r="3"/>
-            </svg>
-          </div>
-          <h2>Captured in Light</h2>
-          <div className="loading-bar">
-            <div className="loading-progress"></div>
-          </div>
-          <p>Preparing your visual journey...</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="App">
       {/* Navigation Bar */}
@@ -160,10 +131,7 @@ export default function App() {
             <button onClick={() => scrollToSection('pricing')} className="nav-link">
               Pricing
             </button>
-            <button onClick={() => scrollToSection('testimonials')} className="nav-link">
-              Reviews
-            </button>
-            <button onClick={() => scrollToSection('contact')} className="contact-btn">
+            <button onClick={() => scrollToSection('footer')} className="contact-btn">
               Contact
             </button>
           </div>
@@ -286,33 +254,16 @@ export default function App() {
                   transform: `rotate(${(index % 2 === 0 ? 1 : -1) * (Math.random() * 4 + 1)}deg)`,
                   animationDelay: `${index * 0.2}s`
                 }}
-                onClick={() => setSelectedPortfolioItem(item)}
               >
                 <div className="photo-content" style={{ backgroundImage: `url(${item.image})` }}>
                   <div className="photo-overlay">
                     <span>{item.title}</span>
-                    <div className="expand-icon">+</div>
                   </div>
                 </div>
                 <div className="photo-shadow"></div>
               </div>
             ))}
           </div>
-
-          {/* Portfolio Modal */}
-          {selectedPortfolioItem && (
-            <div className="portfolio-modal" onClick={() => setSelectedPortfolioItem(null)}>
-              <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <button className="modal-close" onClick={() => setSelectedPortfolioItem(null)}>×</button>
-                <div className="modal-image" style={{ backgroundImage: `url(${selectedPortfolioItem.image})` }}>
-                  <div className="modal-overlay">
-                    <h3>{selectedPortfolioItem.title}</h3>
-                    <span className="modal-category">{selectedPortfolioItem.category}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -485,7 +436,7 @@ export default function App() {
         <div className="container">
           <h2 className="section-title">Favorite Shooting Locations</h2>
           <p className="section-subtitle">Discover some of our most loved romantic destinations where we can capture your love story</p>
-
+          
           <div className="location-gallery">
             {[
               { 
@@ -539,11 +490,11 @@ export default function App() {
               </div>
             ))}
           </div>
-
+          
           <div className="location-message">
             <h3>We Travel Anywhere Your Heart Desires</h3>
             <p>These are just glimpses of the beautiful locations we've captured. Your perfect venue could be anywhere - from intimate backyard ceremonies to destination weddings. We bring our passion and expertise wherever your love story unfolds.</p>
-            <button className="location-cta" onClick={() => scrollToSection('contact')}>
+            <button className="location-cta" onClick={() => scrollToSection('footer')}>
               Let's Discuss Your Dream Location
             </button>
           </div>
@@ -573,6 +524,7 @@ export default function App() {
               }
             ].map((pkg, index) => (
               <div key={index} className="pricing-card">
+                
                 <h3>{pkg.name}</h3>
                 <div className="price">{pkg.price}</div>
                 <ul>
@@ -583,149 +535,6 @@ export default function App() {
                 <button className="cta-button">Inquire Now</button>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className={`testimonials-section romantic-background ${isVisible.testimonials ? 'visible' : ''}`}>
-        <div className="falling-leaves"></div>
-        <div className="container">
-          <h2 className="section-title">Love Stories in Words</h2>
-          <p className="section-subtitle">What our couples say about their experience</p>
-
-          <div className="testimonials-grid">
-            {[
-              {
-                name: "Sarah & Michael",
-                wedding: "Garden Wedding, 2024",
-                text: "Absolutely magical! Every moment was captured with such artistry and emotion. Our photos tell our love story better than we ever could with words.",
-                image: "https://images.unsplash.com/photo-1522529599102-193c0d76b5b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-              },
-              {
-                name: "Emily & James",
-                wedding: "Beach Wedding, 2023",
-                text: "The team was incredible! They made us feel so comfortable and natural. The golden hour shots are absolutely breathtaking.",
-                image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-              },
-              {
-                name: "Lisa & David",
-                wedding: "Mountain Wedding, 2024",
-                text: "Professional, creative, and so passionate about their craft. Our wedding film brings tears to our eyes every time we watch it.",
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-              }
-            ].map((testimonial, index) => (
-              <div key={index} className="testimonial-card" style={{ animationDelay: `${index * 0.2}s` }}>
-                <div className="testimonial-content">
-                  <div className="quote-icon">"</div>
-                  <p className="testimonial-text">{testimonial.text}</p>
-                  <div className="testimonial-author">
-                    <div className="author-image" style={{ backgroundImage: `url(${testimonial.image})` }}></div>
-                    <div className="author-info">
-                      <h4>{testimonial.name}</h4>
-                      <span>{testimonial.wedding}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form Section */}
-      <section id="contact" className={`contact-section romantic-background ${isVisible.contact ? 'visible' : ''}`}>
-        <div className="falling-leaves"></div>
-        <div className="container">
-          <div className="contact-content">
-            <div className="contact-info-section">
-              <h2>Let's Create Magic Together</h2>
-              <p>Ready to capture your love story? We'd love to hear about your special day and discuss how we can create timeless memories for you.</p>
-
-              <div className="contact-details">
-                <div className="contact-item">
-                  <div className="contact-icon">📧</div>
-                  <div>
-                    <h4>Email</h4>
-                    <span>hello@capturedinlight.com</span>
-                  </div>
-                </div>
-                <div className="contact-item">
-                  <div className="contact-icon">📞</div>
-                  <div>
-                    <h4>Phone</h4>
-                    <span>(555) 123-4567</span>
-                  </div>
-                </div>
-                <div className="contact-item">
-                  <div className="contact-icon">📍</div>
-                  <div>
-                    <h4>Location</h4>
-                    <span>Los Angeles, CA<br/>Available for travel worldwide</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="contact-form-section">
-              <form className="contact-form">
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="firstName">First Name *</label>
-                    <input type="text" id="firstName" name="firstName" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="lastName">Last Name *</label>
-                    <input type="text" id="lastName" name="lastName" required />
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="email">Email *</label>
-                    <input type="email" id="email" name="email" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone</label>
-                    <input type="tel" id="phone" name="phone" />
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="weddingDate">Wedding Date</label>
-                    <input type="date" id="weddingDate" name="weddingDate" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="venue">Venue/Location</label>
-                    <input type="text" id="venue" name="venue" placeholder="Tell us about your venue" />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="package">Package Interest</label>
-                  <select id="package" name="package">
-                    <option value="">Select a package</option>
-                    <option value="essential">Essential - $2,500</option>
-                    <option value="complete">Complete - $4,200</option>
-                    <option value="luxury">Luxury - $6,800</option>
-                    <option value="custom">Custom Package</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="message">Tell us about your love story *</label>
-                  <textarea id="message" name="message" rows="5" placeholder="Share your vision, special requests, or any questions you have..." required></textarea>
-                </div>
-
-                <button type="submit" className="submit-btn">
-                  <span>Send Our Love Story</span>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="m6 9 6 6 6-6"/>
-                  </svg>
-                </button>
-              </form>
-            </div>
           </div>
         </div>
       </section>
