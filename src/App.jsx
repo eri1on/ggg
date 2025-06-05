@@ -60,16 +60,22 @@ export default function App() {
             <span className="captured">CAPTURED IN</span>
             <span className="light">LIGHT</span>
           </h1>
-          <p className="hero-subtitle">Romantic Wedding Stories Told in Still & Motion</p>
+          <p className="hero-subtitle">Timeless Wedding Photography & Cinematography</p>
           <button 
             className={`music-toggle ${musicPlaying ? 'playing' : ''}`}
             onClick={() => setMusicPlaying(!musicPlaying)}
           >
-            ♪
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
           </button>
         </div>
         <div className="scroll-indicator">
-          <div className="scroll-arrow">↓</div>
+          <div className="scroll-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -78,42 +84,57 @@ export default function App() {
         <div className={`camera-flash ${cameraClicked ? 'flash' : ''}`}></div>
         <div className="camera-container">
           <div className={`camera-icon ${cameraClicked ? 'clicked' : ''}`} onClick={handleCameraClick}>
-            📷
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 15.2l3.536-3.536-1.414-1.414L12 12.372 9.879 10.25l-1.414 1.414L12 15.2zm0-6.4c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm8-1H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 14H4V10h16v12z"/>
+            </svg>
           </div>
-          <h2>Every Moment is a Shot Worth Taking</h2>
-          <div className="say-cheese">Say Cheese! 📸</div>
+          <h2>Every Moment Deserves Perfection</h2>
+          <div className="say-cheese">Professional Wedding Photography</div>
         </div>
         <div className="hero-images">
           <div className="image-card">
-            <div className="placeholder-image sunset1">🌅</div>
+            <div className="placeholder-image sunset1">
+              <span>Ceremony</span>
+            </div>
           </div>
           <div className="image-card">
-            <div className="placeholder-image sunset2">💑</div>
+            <div className="placeholder-image sunset2">
+              <span>Portraits</span>
+            </div>
           </div>
           <div className="image-card">
-            <div className="placeholder-image sunset3">💍</div>
+            <div className="placeholder-image sunset3">
+              <span>Reception</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Gallery Wall */}
       <section className="gallery-wall">
-        <h2>Couples Gallery</h2>
+        <h2>Portfolio Gallery</h2>
         <div className="gallery-filters">
           <button className="filter-btn active">All</button>
-          <button className="filter-btn">Classic</button>
-          <button className="filter-btn">Boho</button>
-          <button className="filter-btn">Luxury</button>
-          <button className="filter-btn">Sunset</button>
+          <button className="filter-btn">Ceremony</button>
+          <button className="filter-btn">Portraits</button>
+          <button className="filter-btn">Reception</button>
+          <button className="filter-btn">Details</button>
         </div>
         <div className="masonry-grid">
-          {[1,2,3,4,5,6].map(i => (
+          {[
+            'Bridal Portrait',
+            'Exchange of Vows',
+            'Wedding Rings',
+            'First Dance',
+            'Venue Details',
+            'Celebration'
+          ].map((title, i) => (
             <div key={i} className="gallery-item" onClick={playShutterSound}>
-              <div className={`placeholder-image gallery-${i}`}>
-                {['👰', '🤵', '💐', '🥂', '💒', '🎊'][i-1]}
+              <div className={`placeholder-image gallery-${i+1}`}>
+                <span>{title}</span>
               </div>
               <div className="gallery-overlay">
-                <span>View Story</span>
+                <span>View Collection</span>
               </div>
             </div>
           ))}
@@ -125,13 +146,13 @@ export default function App() {
         <h2>Wedding Day Timeline</h2>
         <div className="timeline">
           {[
-            { emoji: '☀️', title: 'Golden Hour Prep', desc: 'The quiet before the magic begins...' },
-            { emoji: '💒', title: 'Sacred Vows', desc: 'Promises whispered in golden light...' },
-            { emoji: '🎉', title: 'First Dance', desc: 'Hearts dancing as one...' },
-            { emoji: '🌅', title: 'Sunset Portraits', desc: 'Love painted in amber hues...' }
+            { icon: '☀', title: 'Preparation', desc: 'Capturing the anticipation and preparation moments' },
+            { icon: '♡', title: 'Ceremony', desc: 'Your sacred vows in timeless elegance' },
+            { icon: '♪', title: 'Celebration', desc: 'Joy and laughter with family and friends' },
+            { icon: '◐', title: 'Golden Hour', desc: 'Romantic portraits in perfect light' }
           ].map((item, index) => (
             <div key={index} className="timeline-item">
-              <div className="timeline-icon">{item.emoji}</div>
+              <div className="timeline-icon">{item.icon}</div>
               <div className="timeline-content">
                 <h3>{item.title}</h3>
                 <p>{item.desc}</p>
@@ -143,15 +164,18 @@ export default function App() {
 
       {/* Motion Memories */}
       <section className="motion-section">
-        <h2>Motion Memories</h2>
+        <h2>Cinematic Films</h2>
         <div className="film-strip">
-          {[1,2,3].map(i => (
+          {['Highlight Reel', 'Full Ceremony', 'Reception'].map((title, i) => (
             <div key={i} className="film-frame" onClick={playShutterSound}>
-              <div className={`video-placeholder film-${i}`}>
-                🎬
+              <div className={`video-placeholder film-${i+1}`}>
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>{title}</span>
               </div>
               <div className="film-overlay">
-                <span>▶ Play Film</span>
+                <span>▶ Watch Film</span>
               </div>
             </div>
           ))}
@@ -160,16 +184,18 @@ export default function App() {
 
       {/* Behind the Scenes */}
       <section className="behind-scenes">
-        <h2>Moments Behind the Lens</h2>
-        <p className="quote">"It's not just light I capture—it's emotion frozen in time."</p>
+        <h2>Our Approach</h2>
+        <p className="quote">"We capture not just moments, but the emotions that make them unforgettable."</p>
         <div className="polaroid-grid">
           {[
-            { emoji: '📸', desc: 'Adjusting the perfect shot' },
-            { emoji: '🔆', desc: 'Chasing golden hour' },
-            { emoji: '💫', desc: 'Creating magic moments' }
+            { title: 'Pre-Wedding Consultation', desc: 'Understanding your vision and style' },
+            { title: 'Professional Equipment', desc: 'State-of-the-art cameras and lighting' },
+            { title: 'Expert Editing', desc: 'Meticulous post-production for perfection' }
           ].map((item, index) => (
             <div key={index} className="polaroid" onClick={playShutterSound}>
-              <div className="polaroid-image">{item.emoji}</div>
+              <div className="polaroid-image">
+                <span>{item.title}</span>
+              </div>
               <div className="polaroid-caption">{item.desc}</div>
             </div>
           ))}
@@ -180,10 +206,10 @@ export default function App() {
       <section className="golden-carousel">
         <div className="carousel-container">
           <div className="carousel-track">
-            {[1,2,3,4,5,6].map(i => (
+            {['Golden Hour Portrait', 'Sunset Ceremony', 'Evening Reception', 'Romantic Moments', 'Venue Beauty', 'Celebration'].map((title, i) => (
               <div key={i} className="carousel-slide">
-                <div className={`carousel-image golden-${i}`}>
-                  🌇
+                <div className={`carousel-image golden-${i+1}`}>
+                  <span>{title}</span>
                 </div>
               </div>
             ))}
@@ -195,11 +221,12 @@ export default function App() {
       <footer className="footer">
         <div className="footer-content">
           <h3>Captured in Light</h3>
-          <p>Est. 2014 | Based in Paradise | Serving Couples Worldwide</p>
+          <p>Professional Wedding Photography & Cinematography</p>
+          <p>Serving couples worldwide with timeless elegance</p>
           <div className="social-links">
-            <span>📧</span>
-            <span>📱</span>
-            <span>📸</span>
+            <span>Contact</span>
+            <span>Portfolio</span>
+            <span>Instagram</span>
           </div>
         </div>
       </footer>

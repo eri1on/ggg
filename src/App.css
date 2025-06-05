@@ -130,11 +130,13 @@ body {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  font-size: 1.5rem;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .music-toggle:hover, .music-toggle.playing {
@@ -214,11 +216,15 @@ body {
 }
 
 .camera-icon {
-  font-size: 8rem;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-bottom: 2rem;
   display: inline-block;
+  color: white;
+}
+
+.camera-icon svg {
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
 
 .camera-icon:hover {
@@ -302,8 +308,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 1rem;
+  font-weight: 500;
   border-radius: 10px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-image:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.placeholder-image span {
+  position: relative;
+  z-index: 2;
+  text-align: center;
 }
 
 .sunset1 { background: linear-gradient(45deg, #ff9a56, #fad0c4); }
@@ -375,7 +403,8 @@ body {
 .gallery-item .placeholder-image {
   width: 100%;
   height: 250px;
-  font-size: 4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .gallery-1 { background: linear-gradient(45deg, #ff9a56, #fad0c4); }
@@ -442,9 +471,11 @@ body {
 }
 
 .timeline-icon {
-  font-size: 3rem;
+  font-size: 2rem;
   margin-right: 2rem;
   min-width: 80px;
+  color: #f39c12;
+  font-weight: 300;
 }
 
 .timeline-content h3 {
@@ -500,9 +531,18 @@ body {
   width: 300px;
   height: 200px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  gap: 1rem;
+}
+
+.video-placeholder svg {
+  opacity: 0.8;
 }
 
 .film-1 { background: linear-gradient(45deg, #ff9a56, #fad0c4); }
@@ -587,8 +627,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   margin-bottom: 1rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-align: center;
+  padding: 1rem;
 }
 
 .polaroid-caption {
@@ -632,8 +677,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-align: center;
+  padding: 2rem;
 }
 
 .golden-1 { background: linear-gradient(45deg, #ff9a56, #fad0c4); }
