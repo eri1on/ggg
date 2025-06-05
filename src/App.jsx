@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 
@@ -542,7 +543,7 @@ export default function App() {
           <div className="location-message">
             <h3>We Travel Anywhere Your Heart Desires</h3>
             <p>These are just glimpses of the beautiful locations we've captured. Your perfect venue could be anywhere - from intimate backyard ceremonies to destination weddings. We bring our passion and expertise wherever your love story unfolds.</p>
-            <button className="location-cta" onClick={() => scrollToSection('footer')}>
+            <button className="location-cta" onClick={() => scrollToSection('contact')}>
               Let's Discuss Your Dream Location
             </button>
           </div>
@@ -572,7 +573,6 @@ export default function App() {
               }
             ].map((pkg, index) => (
               <div key={index} className="pricing-card">
-
                 <h3>{pkg.name}</h3>
                 <div className="price">{pkg.price}</div>
                 <ul>
@@ -642,7 +642,7 @@ export default function App() {
               <h2>Let's Create Magic Together</h2>
               <p>Ready to capture your love story? We'd love to hear about your special day and discuss how we can create timeless memories for you.</p>
 
-The provided change fixes the issue by adding the missing closing tag for the "behind-scenes" section and "golden-gallery".              <div className="contact-details">
+              <div className="contact-details">
                 <div className="contact-item">
                   <div className="contact-icon">📧</div>
                   <div>
