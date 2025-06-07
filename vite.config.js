@@ -4,8 +4,8 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/your-repo-name/', // Replace 'your-repo-name' with your actual GitHub repository name
-  server: {
+  base: '/ggg', // Replace 'your-repo-name' with your actual GitHub repository name
+ /* server: {
     host: '0.0.0.0',
-  }
+  }*/
 })
