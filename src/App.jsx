@@ -4,7 +4,7 @@ import "./App.css";
 export default function App() {
   const [currentSection, setCurrentSection] = useState(0);
   const [musicPlaying, setMusicPlaying] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("Të gjitha");
   const [isVisible, setIsVisible] = useState({});
   const [isNavVisible, setIsNavVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -26,6 +26,13 @@ export default function App() {
     "https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   ];
 
+
+const basePath = '/ggg';  // your server base URL
+const videoFiles = [
+  `${basePath}/videos/sound.mp4`,
+  `${basePath}/videos/horse.mp4`,
+  `${basePath}/videos/sea.mp4`,
+];
   const handleCameraEffect = () => {
     const flash = document.querySelector(".camera-flash");
     if (flash) {
@@ -58,6 +65,7 @@ export default function App() {
 
   useEffect(() => {
     // Initialize loading state
+      console.log("Current slide:", currentSlide);
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
@@ -104,7 +112,7 @@ export default function App() {
       clearInterval(slideInterval);
       clearTimeout(timer);
     };
-  }, []);
+  },  [currentSlide]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -117,91 +125,93 @@ export default function App() {
     setIsMobileMenuOpen(false); // Close mobile menu when navigating
   };
 
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "Golden Hour Ceremony",
-      category: "Ceremony",
-      image:
-        "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      fullImage:
-        "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      description:
-        "A breathtaking ceremony captured during the magical golden hour, where natural light creates the perfect romantic atmosphere.",
-      location: "Malibu Creek State Park",
-      date: "June 2023",
-    },
-    {
-      id: 2,
-      title: "Bridal Portrait",
-      category: "Portraits",
-      image:
-        "https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      fullImage:
-        "https://images.unsplash.com/photo-1594736797933-d0b22a5e8bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      description:
-        "An elegant bridal portrait showcasing the intricate details of the dress and the bride's natural beauty.",
-      location: "Beverly Hills Hotel",
-      date: "August 2023",
-    },
-    {
-      id: 3,
-      title: "Reception Details",
-      category: "Details",
-      image:
-        "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      fullImage:
-        "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      description:
-        "Beautiful reception details capturing the carefully curated atmosphere and romantic ambiance.",
-      location: "Terranea Resort",
-      date: "September 2023",
-    },
-    {
-      id: 4,
-      title: "First Dance",
-      category: "Reception",
-      image:
-        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      fullImage:
-        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      description:
-        "An intimate moment during the couple's first dance, surrounded by the warm glow of candlelight.",
-      location: "Huntington Library",
-      date: "October 2023",
-    },
-    {
-      id: 5,
-      title: "Wedding Rings",
-      category: "Details",
-      image:
-        "https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      fullImage:
-        "https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      description:
-        "Symbolic wedding rings captured with artistic detail, representing the eternal bond of love.",
-      location: "Vibiana",
-      date: "November 2023",
-    },
-    {
-      id: 6,
-      title: "Couple Portrait",
-      category: "Portraits",
-      image:
-        "https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      fullImage:
-        "https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      description:
-        "A romantic couple portrait showcasing their connection and love in a stunning natural setting.",
-      location: "Griffith Observatory",
-      date: "December 2023",
-    },
-  ];
+  
+const portfolioItems = [
+  {
+    id: 1,
+    title: "Ceremonia e Orës së Artë",
+    category: "Ceremonia",
+    image:
+      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    fullImage:
+      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    description:
+      "Një ceremoni mahnitëse e kapur gjatë orës magjike të artë, ku drita natyrore krijon atmosferën perfekte romantike.",
+    location: "Parku Shtetëror Malibu Creek",
+    date: "Qershor 2023",
+  },
+  {
+    id: 2,
+    title: "Ceremonia e Orës së Artë",
+    category: "Ceremonia",
+    image:
+      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    fullImage:
+      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    description:
+      "Një ceremoni mahnitëse e kapur gjatë orës magjike të artë, ku drita natyrore krijon atmosferën perfekte romantike.",
+    location: "Parku Shtetëror Malibu Creek",
+    date: "Qershor 2023",
+  },
+  {
+    id: 3,
+    title: "Detajet e Pritjes",
+    category: "Detajet",
+    image:
+      "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    fullImage:
+      "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    description:
+      "Detajet e bukura të pritjes që kapin atmosferën e kuruar me kujdes dhe ambjentin romantik.",
+    location: "Resorti Terranea",
+    date: "Shtator 2023",
+  },
+  {
+    id: 4,
+    title: "Dança e Parë",
+    category: "Pritja",
+    image:
+      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    fullImage:
+      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    description:
+      "Një moment intim gjatë dansit të parë të çiftit, i rrethuar nga drita e ngrohtë e qirinjve.",
+    location: "Biblioteka Huntington",
+    date: "Tetor 2023",
+  },
+  {
+    id: 5,
+    title: "Unazat e Dasmës",
+    category: "Detajet",
+    image:
+      "https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    fullImage:
+      "https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    description:
+      "Unazat simbolike të dasmës të kapura me detaje artistike, që përfaqësojnë lidhjen e përjetshme të dashurisë.",
+    location: "Vibiana",
+    date: "Nëntor 2023",
+  },
+  {
+    id: 6,
+    title: "Portreti i Çiftit",
+    category: "Portretet",
+    image:
+      "https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    fullImage:
+      "https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    description:
+      "Një portret romantik i çiftit që tregon lidhjen dhe dashurinë e tyre në një ambjent natyror mahnitës.",
+    location: "Observatori Griffith",
+    date: "Dhjetor 2023",
+  },
+];
 
-  const filteredItems =
-    activeFilter === "All"
-      ? portfolioItems
-      : portfolioItems.filter((item) => item.category === activeFilter);
+
+const filteredItems =
+  activeFilter === "Të gjitha"
+    ? portfolioItems
+    : portfolioItems.filter((item) => item.category === activeFilter);
 
   return (
     <div className="App">
@@ -301,28 +311,31 @@ export default function App() {
           {heroImages.map((image, index) => (
             <div
               key={index}
-              className={`hero-slide ${index === currentSlide ? "active" : ""} ${imagesLoaded[`hero-${index}`] ? "loaded" : ""}`}
+className={`hero-slide ${index === currentSlide ? "active" : ""} ${imagesLoaded[`hero-${index}`] ? "loaded" : ""}`}
+
             >
               {!imagesLoaded[`hero-${index}`] && (
                 <div className="image-skeleton">
                   <div className="skeleton-shimmer"></div>
                 </div>
               )}
-              <img
-                src={image}
-                alt={`Wedding photography slide ${index + 1}`}
-                loading={index === 0 ? "eager" : "lazy"}
-                onLoad={() => handleImageLoad(`hero-${index}`)}
-                style={{ display: "none" }}
-              />
-              <div
-                className="slide-image"
-                style={{
-                  backgroundImage: imagesLoaded[`hero-${index}`]
-                    ? `url(${image})`
-                    : "none",
-                }}
-              ></div>
+            <img
+  src={image}
+  alt={`Wedding slide ${index + 1}`}
+  loading={index === 0 ? "eager" : "lazy"}
+  onLoad={() => handleImageLoad(`hero-${index}`)}
+  style={{ width: 0, height: 0, position: "absolute", visibility: "hidden" }}
+/>
+
+           <div
+  className="slide-image"
+  style={{
+    backgroundImage: `url(${image})`,
+    opacity: imagesLoaded[`hero-${index}`] ? 1 : 0,
+    transition: "opacity 1s ease-in-out",
+  }}
+></div>
+
               <div className="slide-overlay"></div>
             </div>
           ))}
@@ -388,31 +401,29 @@ export default function App() {
                   className="photographer-image"
                   style={{
                     backgroundImage:
-                      "url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80)",
+                      "url(https://imgs.search.brave.com/2CV9Cal42yiXLKVl54e8VIN3KG1rPiyW1dn2VyKjXIA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9waG90b2dyYXBo/ZXItdGFraW5nLXBo/b3RvZ3JhcGhzLWNl/bnRyYWwtcGFyay1o/aXMtdG93bl8xMDIz/NjYxLTQxLmpwZz9z/ZW10PWFpc19oeWJy/aWQmdz03NDA)",
                   }}
                 >
                   <div className="photographer-overlay">
-                    <span>Professional Portrait</span>
+                    <span>captured in light</span>
                   </div>
                 </div>
                 <div className="polaroid-caption">
-                  Capturing emotions since 2015
+                  Capturing emotions since 1999
                 </div>
               </div>
             </div>
 
             <div className="about-text">
-              <h2>The Art of Storytelling</h2>
+              <h2>Arti i tregimit të historive</h2>
               <p>
-                Every wedding tells a unique story of love, and I'm here to
-                capture those fleeting moments that become lifelong memories.
-                With over 8 years of experience, I specialize in creating
-                timeless imagery that reflects the authentic emotions of your
-                special day.
+               Çdo dasmë tregon një histori unike dashurie, dhe ne jemi këtu për të kapur ato momente të shkurtra që bëhen kujtime për gjithë jetën. Me mbi 25 vite përvojë, specializohemi në krijimin e imazheve të përjetshme që pasqyrojnë emocionet e sinqerta të ditës suaj të veçantë.
+
+
               </p>
               <div className="film-developing">
                 <div className="developing-bar"></div>
-                <span>Developing memories...</span>
+                <span>Duke zhvilluar kujtime...</span>
               </div>
             </div>
           </div>
@@ -420,229 +431,236 @@ export default function App() {
       </section>
 
       {/* Portfolio Section with Camera Effect */}
-      <section
-        id="portfolio-section"
-        className={`portfolio-section romantic-background ${isVisible["portfolio-section"] ? "visible" : ""}`}
-      >
-        <div className="falling-leaves"></div>
-        <div className="camera-flash"></div>
-        <div className="floating-camera">
-          <svg
-            width="80"
-            height="80"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
+      {/* Seksioni i Portofolit me Efekt Kamera */}
+<section
+  id="portfolio-section"
+  className={`portfolio-section romantic-background ${isVisible["portfolio-section"] ? "visible" : ""}`}
+>
+  <div className="falling-leaves"></div>
+  <div className="camera-flash"></div>
+  <div className="floating-camera">
+    <svg
+      width="80"
+      height="80"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+      <circle cx="12" cy="13" r="3" />
+    </svg>
+  </div>
+
+  <div className="container">
+    <h2 className="section-title">Galeria e Portofolit</h2>
+
+    <div className="gallery-filters">
+      {["Të gjitha", "Ceremonia", "Portretet", "Pritja", "Detajet"].map(
+        (filter) => (
+          <button
+            key={filter}
+            className={`filter-btn ${activeFilter === filter ? "active" : ""}`}
+            onClick={() => setActiveFilter(filter)}
           >
-            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-            <circle cx="12" cy="13" r="3" />
-          </svg>
-        </div>
+            {filter}
+          </button>
+        ),
+      )}
+    </div>
 
-        <div className="container">
-          <h2 className="section-title">Portfolio Gallery</h2>
-
-          <div className="gallery-filters">
-            {["All", "Ceremony", "Portraits", "Reception", "Details"].map(
-              (filter) => (
-                <button
-                  key={filter}
-                  className={`filter-btn ${activeFilter === filter ? "active" : ""}`}
-                  onClick={() => setActiveFilter(filter)}
-                >
-                  {filter}
-                </button>
-              ),
-            )}
+    <div className="photo-wall">
+      {filteredItems.map((item, index) => (
+        <div
+          key={item.id}
+          className="photo-frame"
+          style={{
+            transform: `rotate(${(index % 2 === 0 ? 1 : -1) * (Math.random() * 4 + 1)}deg)`,
+            animationDelay: `${index * 0.2}s`,
+          }}
+          onClick={() => openPortfolioModal(item)}
+          role="button"
+          tabIndex={0}
+          aria-label={`Shiko artikullin e portofolit ${item.title}`}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openPortfolioModal(item);
+            }
+          }}
+        >
+          {!imagesLoaded[`portfolio-${item.id}`] && (
+            <div className="image-skeleton">
+              <div className="skeleton-shimmer"></div>
+            </div>
+          )}
+          <img
+            src={item.image}
+            alt={item.title}
+            loading="lazy"
+            onLoad={() => handleImageLoad(`portfolio-${item.id}`)}
+            style={{ display: "none" }}
+          />
+          <div
+            className={`photo-content ${imagesLoaded[`portfolio-${item.id}`] ? "loaded" : ""}`}
+            style={{
+              backgroundImage: imagesLoaded[`portfolio-${item.id}`]
+                ? `url(${item.image})`
+                : "none",
+            }}
+          >
+            <div className="photo-overlay">
+              <span>{item.title}</span>
+              <div className="view-more">Kliko për të parë detajet</div>
+            </div>
           </div>
-
-          <div className="photo-wall">
-            {filteredItems.map((item, index) => (
-              <div
-                key={item.id}
-                className="photo-frame"
-                style={{
-                  transform: `rotate(${(index % 2 === 0 ? 1 : -1) * (Math.random() * 4 + 1)}deg)`,
-                  animationDelay: `${index * 0.2}s`,
-                }}
-                onClick={() => openPortfolioModal(item)}
-                role="button"
-                tabIndex={0}
-                aria-label={`View ${item.title} portfolio item`}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    openPortfolioModal(item);
-                  }
-                }}
-              >
-                {!imagesLoaded[`portfolio-${item.id}`] && (
-                  <div className="image-skeleton">
-                    <div className="skeleton-shimmer"></div>
-                  </div>
-                )}
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  onLoad={() => handleImageLoad(`portfolio-${item.id}`)}
-                  style={{ display: "none" }}
-                />
-                <div
-                  className={`photo-content ${imagesLoaded[`portfolio-${item.id}`] ? "loaded" : ""}`}
-                  style={{
-                    backgroundImage: imagesLoaded[`portfolio-${item.id}`]
-                      ? `url(${item.image})`
-                      : "none",
-                  }}
-                >
-                  <div className="photo-overlay">
-                    <span>{item.title}</span>
-                    <div className="view-more">Click to view details</div>
-                  </div>
-                </div>
-                <div className="photo-shadow"></div>
-              </div>
-            ))}
-          </div>
+          <div className="photo-shadow"></div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
-      {/* Wedding Timeline */}
       <section
-        id="timeline"
-        className={`timeline-section romantic-background ${isVisible.timeline ? "visible" : ""}`}
-      >
-        <div className="falling-leaves"></div>
-        <div className="container">
-          <h2 className="section-title">A Day in Moments</h2>
-          <div className="timeline-scroll">
-            {[
-              {
-                title: "Getting Ready",
-                time: "10:00 AM",
-                quote: "The quiet anticipation before it all begins...",
-                details:
-                  "Capturing the intimate moments of preparation, the nervous excitement, and the careful attention to every detail that makes your day perfect.",
-              },
-              {
-                title: "First Look",
-                time: "2:00 PM",
-                quote: "That moment when time stands still...",
-                details:
-                  "The raw emotion and authentic connection when you see each other for the first time, creating memories that will last forever.",
-              },
-              {
-                title: "Ceremony",
-                time: "4:00 PM",
-                quote: "Sacred vows under endless skies...",
-                details:
-                  "The culmination of your love story, where promises are made and two lives become one in the presence of family and friends.",
-              },
-              {
-                title: "Golden Hour",
-                time: "6:30 PM",
-                quote: "Love illuminated by nature's spotlight...",
-                details:
-                  "The magical hour when soft, warm light creates the most romantic and timeless portraits of your new beginning together.",
-              },
-              {
-                title: "Reception",
-                time: "8:00 PM",
-                quote: "Joy and laughter filling the night...",
-                details:
-                  "The celebration of your union with dancing, speeches, and moments of pure happiness shared with all your loved ones.",
-              },
-            ].map((moment, index) => (
-              <div
-                key={index}
-                className="timeline-moment"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="moment-marker"></div>
-                <div className="moment-content">
-                  <h3>{moment.title}</h3>
-                  <time>{moment.time}</time>
-                  <p className="moment-quote">"{moment.quote}"</p>
-                  <p className="moment-details">{moment.details}</p>
-                </div>
-                <div
-                  className="moment-image"
-                  style={{
-                    backgroundImage: `url(https://images.unsplash.com/photo-${
-                      index === 0
-                        ? "1465495976277-4387d4b0e4c6"
-                        : index === 1
-                          ? "1606216794074-735e91aa2c92"
-                          : index === 2
-                            ? "1519741497674-611481863552"
-                            : index === 3
-                              ? "1537633552985-df8429e8048b"
-                              : "1511285560929-80b456fea0bc"
-                    }?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80)`,
-                  }}
-                >
-                  <div className="moment-overlay">
-                    <span>Captured Memory</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+  id="timeline"
+  className={`timeline-section romantic-background ${isVisible.timeline ? "visible" : ""}`}
+>
+  <div className="falling-leaves"></div>
+  <div className="container">
+    <h2 className="section-title">Një Ditë në Momente.</h2>
+    <div className="timeline-scroll">
+      {[
+        {
+          title: "Përgatitjet",
+          time: "10:00 E Mëngjesit",
+          quote: "Anticipimi i qetë para se gjithçka të fillojë...",
+          details:
+            "Kapja e momenteve intime të përgatitjes, emocionet nervoze dhe vëmendja e kujdesshme ndaj çdo detaji që e bën ditën tuaj perfekte.",
+          image: "https://imgs.search.brave.com/iddC_ooRXIt8JAB46QbhzOZUSybDV9-FLzKUviMvDOQ/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvOTM5/MjczMzY4L3Bob3Rv/L2JyaWRlLWFuZC1n/cm9vbS1ob2xkaW5n/LXRoZWlyLWhhbmRz/LXRvZ2V0aGVyLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1j/NE1hOUhvV004NE9U/c0tlUkpDYjRZYXVW/MHotbFN2VzAxNmFR/RHlyNHY4PQ", // <-- local image path example
+        },
+        {
+          title: "Shikimi i Parë",
+          time: "2:00 PM",
+          quote: "Ai moment kur koha ndalon...",
+          details:
+            "Emocioni i pastër dhe lidhja autentike kur shihni njëri-tjetrin për herë të parë, duke krijuar kujtime që do të zgjasin përjetësisht.",
+          image: "https://imgs.search.brave.com/p9nZeYNLpRbaV3c6tRUX6HasEUaBU6luIiLEe9S-u28/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc3F1YXJlc3Bh/Y2UtY2RuLmNvbS9j/b250ZW50L3YxLzU4/MWY4ZThmMjk5NGNh/NmIzYWUzZDdjOS85/MjA5MGU4OS04Nzdl/LTQ3NmMtODZhNy1k/Y2IwNWVlMGIyNjEv/Zmlyc3QtbG9vay13/ZWRkaW5nLWFsdGVy/bmF0aXZlcy5qcGc",
+        },
+        {
+          title: "Ceremonia",
+          time: "4:00 PM",
+          quote: "Betimet e shenjta nën qiellin pafund…",
+          details:
+            "Kulminimi i historisë suaj të dashurisë, ku premtimet bëhen dhe dy jetë bëhen një në prani të familjes dhe miqve.",
+          image: "https://imgs.search.brave.com/Rvt0GSD2285ldrOOnuSnzu-1zD6lLeKXRq8U9odB-cY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTkz/MzM2NDgwNi9waG90/by9ncm9vbS1hbmQt/YnJpZGUtaW4td2Vk/ZGluZy1jZXJlbW9u/eS1vbi10aGUtYmVh/Y2guanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPS15OFMtRkxO/UEJRNUJ2TkpMcDFn/NmVEM2dWR2w3cU54/c2w4WDNVME1palE9",
+        },
+        {
+          title: "Ora e Artë",
+          time: "6:30 PM",
+          quote: "Dashuria e ndriçuar nga spoti i natyrës...",
+          details:
+            "Ora magjike kur drita e butë dhe e ngrohtë krijon portretet më romantike dhe të përjetshme të fillimit tuaj të ri së bashku.",
+          image: "https://imgs.search.brave.com/V55K8BKdUuXyiZLeaRMGTWyAOL0aIBBUPGji0coLi1k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc3F1YXJlc3Bh/Y2UtY2RuLmNvbS9j/b250ZW50L3YxLzVk/NWQwYjFkMGRmN2M4/MDAwMTg0NGYxZC9k/NmVmZGZmMS02YWMx/LTQ0NWYtOWM4MC02/NDUzZGY0MzExZTIv/R29sZGVuK0hvdXIr/V2VkZGluZytwaG90/b3N-Mi5qcGc",
+        },
+        {
+          title: "Mbrëmje / Pjesa e pritjes",
+          time: "8:00 PM",
+          quote: "Gëzim dhe të qeshura që mbushin natën...",
+          details:
+            "Festimi i bashkimit tuaj me vallëzim, fjalime dhe momente të lumtura të ndara me të gjithë të dashurit tuaj.",
+          image: "https://imgs.search.brave.com/rdZe7OnhocubdhJcQvipuminm5L6Gq_eVkUaSwLmGpY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zaHV0/dGVyZmx5d3BlLndw/ZW5naW5lcG93ZXJl/ZC5jb20vd3AtY29u/dGVudC91cGxvYWRz/LzIwMTgvMTEvd2Vk/ZGluZy1yZWNlcHRp/b24taWRlYXMtaGFu/Z2luZy1saWdodHMt/b3V0ZG9vci5qcGc",
+        },
+      ].map((moment, index) => (
+        <div
+          key={index}
+          className="timeline-moment"
+          style={{ animationDelay: `${index * 0.2}s` }}
+        >
+          <div className="moment-marker"></div>
+          <div className="moment-content">
+            <h3>{moment.title}</h3>
+            <time>{moment.time}</time>
+            <p className="moment-quote">"{moment.quote}"</p>
+            <p className="moment-details">{moment.details}</p>
+          </div>
+          <div
+            className="moment-image"
+            style={{
+              backgroundImage: `url(${moment.image})`,
+            }}
+          >
+            <div className="moment-overlay">
+              <span>Captured Memory</span>
+            </div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
-      {/* Motion Memories */}
-      <section
-        id="motion"
-        className={`motion-section romantic-background ${isVisible.motion ? "visible" : ""}`}
-      >
-        <div className="falling-leaves"></div>
-        <div className="cinema-bg"></div>
-        <div className="container">
-          <h2 className="section-title">Motion Memories</h2>
-          <p className="section-subtitle">Short films of forever</p>
 
-          <div className="film-reel">
-            {["Highlight Reel", "Ceremony Film", "Reception Celebration"].map(
-              (title, index) => (
-                <div key={index} className="film-frame">
-                  <div className="film-sprockets">
-                    <div className="sprocket"></div>
-                    <div className="sprocket"></div>
-                    <div className="sprocket"></div>
-                  </div>
-                  <div
-                    className="film-content"
-                    style={{
-                      backgroundImage: `url(https://images.unsplash.com/photo-${
-                        index === 0
-                          ? "1606216794074-735e91aa2c92"
-                          : index === 1
-                            ? "1519741497674-611481863552"
-                            : "1511285560929-80b456fea0bc"
-                      }?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80)`,
-                    }}
-                  >
-                    <div className="play-button">
-                      <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                    <span>{title}</span>
-                  </div>
-                </div>
-              ),
-            )}
+
+
+{/* Motion Memories */}
+     <section
+  id="motion"
+  className={`motion-section romantic-background ${isVisible.motion ? "visible" : ""}`}
+>
+  <div className="falling-leaves"></div>
+  <div className="cinema-bg"></div>
+  <div className="container">
+    <h2 className="section-title">Kujtime në Lëvizje</h2>
+    <p className="section-subtitle">Filma të shkurtër të përjetësisë</p>
+
+    <div className="film-reel">
+      {["Highlight Reel", "Ceremony Film", "Reception Celebration"].map((title, index) => (
+        <div key={index} className="film-frame">
+          <div className="film-sprockets">
+            <div className="sprocket"></div>
+            <div className="sprocket"></div>
+            <div className="sprocket"></div>
+          </div>
+          <div className="film-content" style={{ position: "relative", paddingTop: "56.25%" /* 16:9 aspect ratio */ }}>
+           <video
+  src={videoFiles[index]}
+  controls
+  controlsList="nodownload"
+  onContextMenu={(e) => e.preventDefault()}
+  style={{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: "8px",
+  }}
+/>
+
+            <span
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                left: "10px",
+                color: "white",
+                textShadow: "0 0 5px black",
+                fontWeight: "bold",
+              }}
+            >
+              {title}
+            </span>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+
+
+
 
       {/* Behind the Scenes */}
       <section
@@ -651,50 +669,47 @@ export default function App() {
       >
         <div className="falling-leaves"></div>
         <div className="container">
-          <h2 className="section-title">Behind the Lens</h2>
+          <h2 className="section-title">Pas Objektivit</h2>
           <blockquote className="photographer-quote">
-            "It's not just photos. It's a feeling I try to catch, frame by
-            frame."
+            ""Janë më shumë se vetëm foto. Është një ndjenjë që përpiqem ta kap"
           </blockquote>
 
-          <div className="bts-grid">
-            {[
-              {
-                title: "Preparation",
-                desc: "Every shot planned with intention and care",
-              },
-              {
-                title: "In the Moment",
-                desc: "Capturing authentic emotions as they unfold",
-              },
-              {
-                title: "Perfect Timing",
-                desc: "Years of experience in finding the right light",
-              },
-            ].map((item, index) => (
-              <div key={index} className="bts-card">
-                <div className="lens-flare"></div>
-                <div
-                  className="bts-image"
-                  style={{
-                    backgroundImage: `url(https://images.unsplash.com/photo-${
-                      index === 0
-                        ? "1492691527719-9d1e07e534b6"
-                        : index === 1
-                          ? "1465495976277-4387d4b0e4c6"
-                          : "1594736797933-d0b22a5e8bf2"
-                    }?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80)`,
-                  }}
-                >
-                  <div className="bts-overlay">
-                    <span>{item.title}</span>
-                  </div>
-                </div>
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
-              </div>
-            ))}
-          </div>
+    <div className="bts-grid">
+  {[
+    {
+      title: "Përgatitjet",
+      desc: "Çdo Foto e planifikuar me qëllim dhe kujdes",
+      imgUrl: "https://imgs.search.brave.com/rvXvL_HW7NuJgmKVUTfpAJvOGa5TpgA3DW795SC2vkI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNjE5/MzY2NzQ2L3Bob3Rv/L2JyaWRlLWFuZC1i/b3VxdWV0LXN0b2Nr/LWltYWdlLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz1TU1Zk/RndwaDdzTkVCYVBL/SDU4ZkppQTBCcTdo/cThTVmt4T0IyZmh2/R3p3PQ",  // Your image path here
+    },
+    {
+      title: "Në Moment",
+      desc: "Kapja e emocioneve autentike teksa shfaqen",
+      imgUrl: "https://imgs.search.brave.com/n2q0pCDNbsib29sPA46faDtHiyKVsZ29hWwEapTHJko/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvOTI2/NjAyMzc4L3Bob3Rv/L25ld2x5d2VkLWNv/dXBsZS13YWxraW5n/LW91dC1jaHVyY2gt/YW5kLWNlbGVicmF0/aW5nLXdlZGRpbmct/d2l0aC1jb25mZXR0/aS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9dlJhVkx6aXh3/Mng4S1VFRVhOcThj/QkNQb2FWOHNSWFE3/U2JMOWZDV1NGYz0",  // Your image path here
+    },
+    {
+      title: "Koha e Përkryer",
+      desc: "Vite përvojë në gjetjen e dritës së duhur",
+      imgUrl: "https://imgs.search.brave.com/_xFfflIQfSZVaWykxhK884MQ2DuXfDlvULpF5_lkgvU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM5/OTAwMDAxMi9waG90/by9ndWVzdHMtdGhy/b3dpbmctY29uZmV0/dGktb3Zlci1icmlk/ZS1hbmQtZ3Jvb20t/YXMtdGhleS13YWxr/LXBhc3QtYWZ0ZXIt/dGhlaXItd2VkZGlu/Zy1jZXJlbW9ueS5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/X0tSdS05ZW9TcUg4/eWF6c29JRFl5MTVO/RXpTT1RUSlFSSjBJ/N0lKVE1HQT0",  // Your image path here
+    },
+  ].map((item, index) => (
+    <div key={index} className="bts-card">
+      <div className="lens-flare"></div>
+      <div
+        className="bts-image"
+        style={{
+          backgroundImage: `url(${item.imgUrl})`,
+        }}
+      >
+        <div className="bts-overlay">
+          <span>{item.title}</span>
+        </div>
+      </div>
+      <h3>{item.title}</h3>
+      <p>{item.desc}</p>
+    </div>
+  ))}
+</div>
+
         </div>
       </section>
 
@@ -743,10 +758,9 @@ export default function App() {
       >
         <div className="falling-leaves"></div>
         <div className="container">
-          <h2 className="section-title">Favorite Shooting Locations</h2>
+          <h2 className="section-title">Vendndodhjet e Preferuara të Fotografimit</h2>
           <p className="section-subtitle">
-            Discover some of our most loved romantic destinations where we can
-            capture your love story
+            Zbuloni disa nga destinacionet tona më të dashura romantike ku mund të kapim historinë tuaj të dashurisë
           </p>
 
           <div className="location-gallery">
@@ -762,21 +776,21 @@ export default function App() {
                 title: "Garden Paradise",
                 location: "Botanical Gardens",
                 image:
-                  "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                  "https://imgs.search.brave.com/b72qy9ZHQuXRYGII9inosAJRWVCM3nWRaxQrCgUAFRg/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9i/ZWF1dGlmdWwtdmll/dy1tZXNtZXJpemlu/Zy1uYXR1cmUtdHJh/ZGl0aW9uYWwtc3R5/bGVkLWphcGFuZXNl/LWFkZWxhaWRlLWhp/bWVqaS1nYXJkZW5z/XzE4MTYyNC00Njc3/Ni5qcGc_c2VtdD1h/aXNfaHlicmlkJnc9/NzQw",
                 style: { top: "35%", left: "75%" },
               },
               {
                 title: "Historic Estate",
                 location: "Victorian Mansion",
                 image:
-                  "https://images.unsplash.com/photo-1519167758481-83f29c5c6ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                  "https://imgs.search.brave.com/bp99ykY_XSNXLCTqm96N0hEEd93HnxuY0ka1IatSz1U/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vZGlnaXRh/bC1waG90b2dyYXBo/eS1zY2hvb2wuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE3/LzExL3VsdGltYXRl/LWd1aWRlLW91dGRv/b3ItbmF0dXJlLXBo/b3RvZ3JhcGh5LTA5/LmpwZz9yZXNpemU9/NTYzLDc1MCZzc2w9/MQ",
                 style: { top: "65%", left: "25%" },
               },
               {
                 title: "Lakeside Romance",
                 location: "Crystal Lake",
                 image:
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                  "https://imgs.search.brave.com/0n8INSkpjo86h_LiY1crAduPwS0X5-uljvue5LFth3M/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/dGhlLWJlYXV0eS1v/Zi1uYXR1cmUtdjAt/YzFsYmx1OHVsZDFm/MS5qcGc_d2lkdGg9/NjQwJmNyb3A9c21h/cnQmYXV0bz13ZWJw/JnM9ZTdmY2IzM2Yx/ZDdmMWI3ZThjN2I4/NTNhZWVjZDgzNmJm/YmYyN2Q0MQ",
                 style: { top: "25%", left: "60%" },
               },
               {
